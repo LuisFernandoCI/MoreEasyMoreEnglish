@@ -1,16 +1,11 @@
 <%-- 
-    Document   : listaGrammar
-    Created on : 23/10/2019, 07:54:57 PM
+    Document   : agregarGrammar
+    Created on : 27/10/2019, 03:28:14 PM
     Author     : amdza
 --%>
-
-<%@page import="java.util.List"%>
 <% 
     HttpSession actual = request.getSession(true);
     int idCurso = (Integer) actual.getAttribute("idCurso");%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="com.dao.domain.Grammar"%>
-<%@page import="com.web.dao.DAOGrammar"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -54,46 +49,46 @@
 
                     </nav>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <h1>
-                            Lista de Grammar
-                        </h1>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <td class="" ><p>ID</p></td>
-                                    <td class="" ><p>Nombre</p></td>
-                                    <td class="" ><p>Sumary</p></td>
-                                    <td class="" ><p>Example</p></td>
-                                    <td class="" ><p>From</p></td>
-                                    <td class="" ><p>Use</p></td>
-                                </tr>
-                            </thead>
-                            <%
-                                DAOGrammar tarea = new DAOGrammar();
-                                List<Grammar>lista =tarea.obtenerUnidad(idCurso);
-                                for (Grammar g : lista) {
-                            %>
-                            <tbody>
-                                <tr>
-                                    <td> <%= g.getIdGrammar()%> </td>
-                                    <td> <%= g.getNombreGrammar()%></td>
-                                    <td> <%= g.getSumaryGrammar() %></td>
-                                    <td> <%= g.getExampleGrammar() %></td>
-                                    <td> <%= g.getFromGrammar() %></td>
-                                    <td> <%= g.getUseGrammar() %></td>
-                                    <td><a href="servletGrammar?accion=BuscarG&id=<%= g.getIdGrammar()%>" class="btn btn-primary glyphicon glyphicon-refresh" role="button"></a></td>
-                                    <td><a href="servletGrammar?accion=EliminarG&id=<%= g.getIdGrammar()%>" class="btn btn-danger glyphicon glyphicon-remove" role="button"></a></td>
-                                </tr>
-                            </tbody>
-                            <%
-                                }
-                            %>
-                        </table> 
-                        <a href="agregarCurso.jsp" class="btn btn-primary" role="button">Nuevo Grammar</a>
+                <div class="col-md-8">
+                <form id="form1" name="form1" method="post" action="servletGrammar">
+                    <input type="hidden" name="accion" value="InsertarG"/>
+                    <h1>Nuevo Grammar</h1>
+                    <input type="hidden" id="idCurso" name="idCurso" value="<%= idCurso %>">
+                    <div class="form-group">
+                        <label for="exampleNombreCurso">
+                            Nombre Grammar:
+                        </label>
+                        <input type="text" class="form-control" id="NombreGrammar" name="NombreGrammar"  placeholder="Nombre del curso..." maxlength="100" required/>
                     </div>
-                </div>
+                    <div class="form-group">
+                        <label for="exampleNivelCompetencia">
+                            Sumary :
+                        </label>
+                        <input type="text" class="form-control" id="SumaryGrammar" name="SumaryGrammar" placeholder="Nivel de Competencia..." maxlength="50" required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleDescripcion">
+                            Example :
+                        </label>
+                        <input type="text" class="form-control" id="ExampleGrammar" name="ExampleGrammar" placeholder="Descripcion..." maxlength="500" required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleDescripcion">
+                            From :
+                        </label>
+                        <input type="text" class="form-control" id="FromGrammar" name="FromGrammar" placeholder="Descripcion..." maxlength="500" required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleDescripcion">
+                            Use :
+                        </label>
+                        <input type="text" class="form-control" id="UseGrammar" name="UseGrammar" placeholder="Descripcion..." maxlength="500" required/>
+                    </div>
+                    <button type="submit" class="btn btn-default" id="btnInsertarG" name="btnInsertarG">
+                        Aceptar
+                    </button>
+                </form>
+            </div>
             </div>
         </div>
     </body>

@@ -12,13 +12,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author COLINAS
  */
 public class DAOGrammar {
-    public boolean insertarGammar(Grammar g){
+    public boolean insertarGrammar(Grammar g){
     boolean res = false;
     Connection con= null;  
     CallableStatement cs = null; 
@@ -111,15 +112,16 @@ public class DAOGrammar {
         return bor;
     }
     
-    public ArrayList<Grammar> obtenerGrammar(){
+    public List obtenerUnidad(int idCurso){
        ArrayList<Grammar> lista=new ArrayList<Grammar>();
        Connection con=null;
        PreparedStatement ps=null;
-       String sql="SELECT * FROM grammar where EstatusGrammar='A'";
+       String sql="SELECT * FROM grammar where EstatusGrammar='A' and Curso_IDCurso = ?";
        try{
            con=conexion.getConexion();
            if(con!=null){
                ps=con.prepareStatement(sql);
+               ps.setInt(1, idCurso);
                ResultSet rs= ps.executeQuery();
                while(rs.next()){
                     Grammar g = new Grammar();

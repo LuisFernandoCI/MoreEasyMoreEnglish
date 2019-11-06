@@ -12,6 +12,7 @@ package com.dao.domain;
 public class Unidad {
      private int idUnidad, curso_idCurso;
     private String nombreUnidad, descripcion, estatusUnidad;
+    
 
     public Unidad(int idUnidad, String nombreUnidad, String descripcion, String estatusUnidad, int curso_idCurso) {
         this.idUnidad = idUnidad;

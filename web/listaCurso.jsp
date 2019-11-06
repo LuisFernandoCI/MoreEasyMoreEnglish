@@ -39,7 +39,10 @@
                                     <a href="conocenos.jsp">Conocenos</a>
                                 </li>
                                 <li class="active">
-                                    <a href="ListaCurso.jsp">Cursos</a>
+                                    <a href="listaCurso.jsp">Cursos</a>
+                                </li>
+                                <li class="active">
+                                    <a href="listaUsuario.jsp">Cursos</a>
                                 </li>
                                 <li>
                                     <a href="servletSesion?accion=cerrar">Cerrar</a>
@@ -80,8 +83,8 @@
                                     <td> <%= e.getDescripcion()%></td>
                                     <td><a href="servletCurso?accion=BuscarC&id=<%=e.getIdCurso()%>" class="btn btn-primary glyphicon glyphicon-refresh" role="button"></a></td>
                                     <td><a href="servletCurso?accion=EliminarC&id=<%=e.getIdCurso()%>" class="btn btn-danger glyphicon glyphicon-remove" role="button"></a></td>
-                                    <td><a href="servletUnidad?accion=BuscarU&id=<%=e.getIdCurso()%>" class="btn btn-primary glyphicon glyphicon-pencil" role="button"></a></td>
-                                     <td><a href="servletGrammar?accion=EliminarG&id=<%=e.getIdCurso()%>" class="btn btn-primary glyphicon glyphicon-pencil" role="button"></a></td>
+                                    <td><a href="servletUnidad?accion=listaU&id=<%=e.getIdCurso()%>" class="btn btn-primary glyphicon glyphicon-pencil" role="button"></a></td>
+                                     <td><a href="servletGrammar?accion=listaG&id=<%=e.getIdCurso()%>" class="btn btn-primary glyphicon glyphicon-pencil" role="button"></a></td>
                                 </tr>
                             </tbody>
                             <%

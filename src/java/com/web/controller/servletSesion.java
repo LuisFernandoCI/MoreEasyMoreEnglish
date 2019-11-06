@@ -64,7 +64,7 @@ public class servletSesion extends HttpServlet {
             break;
             case "ALUMNO":
                 actual.setAttribute("logueado", usuario);
-                actual.setAttribute("nivel", "EMPLEADO");
+                actual.setAttribute("nivel", "ALUMNO");
                 s = da.buscarSesion(request.getParameter("usuario"));
                 request.getSession().setAttribute("s", s);
                 response.sendRedirect("principal.jsp");
@@ -83,7 +83,7 @@ public class servletSesion extends HttpServlet {
         s.setPassword(request.getParameter("pass"));
         boolean a=da.registrar(s);
         if(a){
-           response.sendRedirect("principal.jsp");
+           response.sendRedirect("login.jsp");
         }else {response.sendRedirect("registro.jsp");
         }
     }

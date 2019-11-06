@@ -5,11 +5,13 @@
  */
 package com.web.dao;
 
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import com.dao.domain.Sesion;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -22,14 +24,14 @@ public class DAOSesion extends conexion  {
        ResultSet rs=null;
        String nivel="";
        try{ 
-           String consulta = "select correouser, tipousuario from usuarios where correouser = ? and  password = ? ";
+           String consulta = "select CorreoUser, TipoUser from usuario where CorreoUser = ? and  PasswordUser = ? ";
            pst = getConexion().prepareStatement(consulta);
            pst.setString(1, usuario);
            pst.setString(2, contrasena);
            rs= pst.executeQuery();
            if(rs.next()){
-                   s.setCorreo(rs.getString("correouser"));
-                   nivel=rs.getString("tipousuario");   }
+                   s.setCorreo(rs.getString("CorreoUser"));
+                   nivel=rs.getString("TipoUser");   }
            if(rs.absolute(1)){
                return nivel;
            }   
@@ -52,13 +54,14 @@ public class DAOSesion extends conexion  {
         PreparedStatement pst= null;
         
         try{
-            String consulta="insert into usuarios(nombreuser,apellidouser,correouser,password,tipousuario) values(?,?,?,?)";
+            String consulta="insert into usuario(NombreUser, ApellidoUser, CorreoUser, PasswordUser , TipoUser, EstatusUser) values(?,?,?,?,?,?)";
             pst = getConexion().prepareStatement(consulta);
             pst.setString(1, s.getNombre());
-            pst.setString(1, s.getApellido());
-            pst.setString(1, s.getCorreo());
-            pst.setString(2, s.getPassword());
-            pst.setString(3, "ALUMNO");
+            pst.setString(2, s.getApellido());
+            pst.setString(3, s.getCorreo());
+            pst.setString(4, s.getPassword());
+            pst.setString(5, "ALUMNO");
+            pst.setString(6, "A");
             
             if(pst.executeUpdate() == 1){
                 return true;
@@ -109,4 +112,32 @@ public class DAOSesion extends conexion  {
        return s;
     }
     
+    public ArrayList<Sesion> obtenerUsuarios(){
+       ArrayList<Sesion> lista=new ArrayList<Sesion>();
+       Connection con=null;
+       PreparedStatement ps=null;
+       String sql="SELECT * FROM usuario where EstatusUser='A'";
+       try{
+           con=conexion.getConexion();
+           if(con!=null){
+               ps=con.prepareStatement(sql);
+               ResultSet rs= ps.executeQuery();
+               while(rs.next()){
+                    Sesion s = new Sesion();
+                    s.setIdusuario(rs.getInt("IDUsuario"));
+                    s.setCorreo(rs.getString("CorreoUser"));
+                    s.setNombre(rs.getString("NombreUser"));
+                    s.setApellido(rs.getString("ApellidoUser"));
+                    s.setPassword(rs.getString("PasswordUser"));
+                    s.setTipo(rs.getString("TipoUser"));
+                    s.setCurso_idCurso(rs.getInt("Curso_IDCurso"));
+                    lista.add(s);
+                    System.out.println(lista);
+               }
+           }
+       }catch(SQLException e){
+            System.err.print("Error en la busqueda "+e.getMessage());
+       }
+       return lista;
+    }
 }

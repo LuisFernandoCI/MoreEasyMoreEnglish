@@ -19,7 +19,7 @@ public class conexion {
     public static Connection getConexion() throws SQLException{
         Connection con=null;
         String driver="com.mysql.jdbc.Driver";
-        String url="jdbc:mysql://localhost:3306/meme";
+        String url="jdbc:mysql://localhost:3306/moemoe";
         String usu="root";
         String pass="";
         try{
